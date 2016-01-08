@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+
+
+     {% if  success  %}
+        <img src="{% static  out_file %}" />
+    {% else %}
+         <form enctype="multipart/form-data" method="post" action="/wordcloud/">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <input type="submit" value="{% trans 'submit' %}" />
+{#  <input type="hidden" name="next" value="{{ next }}" />#}
+</form>
+    {% endif %}
+
+{% endblock %}

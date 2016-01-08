@@ -1,0 +1,56 @@
+
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+{% for book in book_list  %}
+
+    <p>title:{{ book.title }}; price: {{ book.price }}</p>
+{% endfor %}
+
+
+    <form action='.' method='POST'>
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" />
+
+</form>
+
+    <script>
+    $(function(){
+        $('.captcha').css({
+        'width':80,
+        'height':33
+    })
+	$('.captcha').click(function(){
+        console.log('click');
+		 $.getJSON("/captcha/refresh/",
+                  function(result){
+             $('.captcha').attr('src', result['image_url']);
+             $('#id_captcha_0').val(result['key'])
+		  });
+
+
+});
+    $('#id_captcha_1').blur(function(){
+        json_data={
+            'response':$('#id_captcha_1').val(),
+            'hashkey':$('#id_captcha_0').val()
+        }
+        $.getJSON('/ajax_val', json_data, function(data){
+            $('#captcha_status').remove()
+            if(data['status']){
+                $('#id_captcha_1').after('<span id="captcha_status" style="color:blue">*验证码正确</span>')
+            }else{
+                 $('#id_captcha_1').after('<span id="captcha_status" style="color:red">*验证码错误</span>')
+            }
+        });
+
+    });
+
+
+    })
+{#df#}
+    </script>
+
+{% endblock %}

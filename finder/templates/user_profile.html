@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {{ user.id }}
+  {% csrf_token %}
+
+    {{ user }}
+    {{ user.email }}
+
+
+
+{% endblock %}

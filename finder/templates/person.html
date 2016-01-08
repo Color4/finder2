@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <form action="." method="POST">
+    {% csrf_token %}
+	{{ form }}
+    <input type="submit" value='submit' />
+
+    </form>
+
+{#    #}
+    {% for person in person_list  %}
+
+    <p>name:{{ person.name }}; age: {{ person.age }}; school:{{ person.school}}
+        {{ person.province }} {{ person.school.name }} {{ person.province.post }}
+    </p>
+{% endfor %}
+{#    {{ school_list }}#}
+
+{% endblock %}
