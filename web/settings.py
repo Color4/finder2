@@ -91,9 +91,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'finder',
-        'USER': 'root',
+        'USER': 'lpd',
         'PASSWORD': 'xinyu',
-        'HOST': '',
+        'HOST': '120.27.100.156',
         'PORT': '',
     }
 }

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load staticfiles %}
+
 
 {% block content %}
     <!-- 图片切换 -->
@@ -12,7 +14,7 @@
         </ol>
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-                <img class="first-slide" width=100% src="http://static.ghostchina.com/image/6/d1/fcb3879e14429d75833a461572e64.jpg" alt="First slide">
+                <img class="first-slide" width=100% src="{% static 'images/dabai3.jpg' %}" alt="First slide">
                 <div class="container">
                     <div class="carousel-caption">
                         <h1>导师推荐系统</h1>
@@ -22,7 +24,7 @@
                 </div>
             </div>
             <div class="item">
-                <img class="second-slide" width=100%  src="http://static.ghostchina.com/image/6/d1/fcb3879e14429d75833a461572e64.jpg" alt="Second slide">
+                <img class="second-slide" width=100%  src="{% static 'images/dabai5.jpg' %}" alt="Second slide">
                 <div class="container">
                     <div class="carousel-caption">
                         <h1>知识百宝箱</h1>
@@ -32,7 +34,7 @@
                 </div>
             </div>
             <div class="item">
-                <img class="third-slide" width=100%  src="http://static.ghostchina.com/image/6/d1/fcb3879e14429d75833a461572e64.jpg" alt="Third slide">
+                <img class="third-slide" width=100%  src="{% static 'images/dabai6.jpg' %}" alt="Third slide">
                 <div class="container">
                     <div class="carousel-caption">
                         <h1>学术前沿</h1>

@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^db/$', views.db),
     url(r'^books/$', views.book_list, name='books'),
     url(r'^captcha/', include('captcha.urls')),
-    #url('^wordcloud/', views.word_cloud, name='word_cloud'),
+    url('^wordcloud/', views.word_cloud, name='word_cloud'),
     url('^userprofile/', views.user_profile, name='user_profile'),
     url('^ajax_val/', views.ajax_val, name='ajax_val'),
     url('^some_view/', views.some_view), # 这是打开form表单的链接

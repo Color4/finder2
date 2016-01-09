@@ -54,6 +54,9 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{% url 'index' %}">首页</a></li>
+
+                <li><a href="{% url 'word_cloud' %}">词云</a></li>
+
                 <li><a href="#">Contact</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -72,25 +75,23 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                     <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">{{ user.username }} <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{% url 'user_profile' %}">User profile</a></li>
-                        <li role="separator" class="divider"></li>
-                        <!-- <li class="dropdown-header">Nav header</li> -->
-                        <li><a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a></li>
-                    </ul>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{ user.username }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'user_profile' %}">User profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <!-- <li class="dropdown-header">Nav header</li> -->
+                            <li><a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a></li>
+                        </ul>
 
                     </li>
-    {% else %}
-<li><a href="/accounts/register/">注册 <span class="sr-only">(current)</span></a></li>
-          <li><a href="/accounts/login/">登录</a></li>
-    {% endif %}
+                {% else %}
+                    <li><a href="/accounts/register/">注册 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/accounts/login/">登录</a></li>
+                {% endif %}
 
 
-
-
-        </ul>
+            </ul>
         </div>
 
         <!--/.nav-collapse -->
