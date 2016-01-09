@@ -7,16 +7,16 @@
 
 
 
-     {% if  success  %}
-        <img src="{% static  out_file %}" />
+    {% if  success %}
+        <img src="{% static  out_file %}"/>
     {% else %}
-         <form enctype="multipart/form-data" method="post" action="/wordcloud/">
-  {% csrf_token %}
-  {{ form.as_p }}
+        <form enctype="multipart/form-data" method="post" action="/wordcloud/">
+            {% csrf_token %}
+            {{ form.as_p }}
 
-  <input type="submit" value="{% trans 'submit' %}" />
-{#  <input type="hidden" name="next" value="{{ next }}" />#}
-</form>
+            <input type="submit" value="{% trans 'submit' %}"/>
+            {#  <input type="hidden" name="next" value="{{ next }}" />#}
+        </form>
     {% endif %}
 
 {% endblock %}

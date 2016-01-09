@@ -13,6 +13,8 @@ from .word_cloud import create_cloud
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 from django.http import JsonResponse
+import hashlib
+
 
 
 def add(request, a, b):  # /分割
@@ -114,6 +116,7 @@ def word_cloud(request):
             # return HttpResponse(request.FILES['file'].read())
             # os.path.join(BASE_DIR, "static")
             out_path = os.path.join(settings.STATIC_ROOT, 'out.jpg')
+            # out_path = static('out.jpg')
             create_cloud(request.FILES['word'], request.FILES['img'], out_path)
             export = {
                 'success':True,
@@ -174,3 +177,29 @@ def person(request):
         person_list = Person.objects.all()
         # school_list = person_list.School_set.all()
         return render(request, 'person.html', locals())
+
+WEIXIN_TOKEN = 'xiaobaifinder'
+
+def weixin_check(request):
+    """
+    所有的消息都会先进入这个函数进行处理，函数包含两个功能，
+    微信接入验证是GET方法，
+    微信正常的收发消息是用POST方法。
+    """
+    if request.method == "GET":
+        signature = request.GET.get("signature", None)
+        timestamp = request.GET.get("timestamp", None)
+        nonce = request.GET.get("nonce", None)
+        echostr = request.GET.get("echostr", None)
+        token = WEIXIN_TOKEN
+        tmp_list = [token, timestamp, nonce]
+        tmp_list.sort()
+        tmp_str = "%s%s%s" % tuple(tmp_list)
+        tmp_str = tmp_str.encode('utf-8')
+        tmp_str = hashlib.sha1(tmp_str).hexdigest()
+        if tmp_str == signature:
+            return HttpResponse(echostr)
+        else:
+            return HttpResponse("error")
+    else:
+        return HttpResponse('error')

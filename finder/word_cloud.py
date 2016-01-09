@@ -1,7 +1,4 @@
 __author__ = 'lipidong'
-
-
-#!/usr/bin/env python2
 """
 Masked wordcloud
 ================
@@ -12,7 +9,6 @@ from os import path
 from PIL import Image
 import numpy as np
 #import matplotlib.pyplot as plt
-
 from wordcloud import WordCloud, STOPWORDS
 
 def create_cloud(word, img, out_path):
