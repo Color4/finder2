@@ -113,7 +113,7 @@ def word_cloud(request):
          if form.is_valid():
             # return HttpResponse(request.FILES['file'].read())
             # os.path.join(BASE_DIR, "static")
-            out_path = os.path.join(settings.STATICFILES_DIRS[0], 'out.jpg')
+            out_path = os.path.join(settings.STATIC_ROOT, 'out.jpg')
             create_cloud(request.FILES['word'], request.FILES['img'], out_path)
             export = {
                 'success':True,
