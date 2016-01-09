@@ -10,8 +10,8 @@ Using a mask you can generate wordclouds in arbitrary shapes.
 
 from os import path
 from PIL import Image
-#import numpy as np
-#import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib.pyplot as plt
 
 from wordcloud import WordCloud, STOPWORDS
 
