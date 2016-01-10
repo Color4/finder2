@@ -40,11 +40,7 @@ urlpatterns = [
     url('^ajax_val/', views.ajax_val, name='ajax_val'),
     url('^some_view/', views.some_view), # 这是打开form表单的链接
     url('^person/$', finder.views.person, name = 'person'),
-<<<<<<< HEAD
-    url('^weixin/$', finder.views.weixin_check, name = 'weixin')
-=======
-    url('^weixin_check/$', finder.views.weixin_check, name = 'weixin_check')
->>>>>>> d4c36987304bd1f75cee29eb4ff015ae0d7ba276
+    url('^weixin/$', finder.views.weixin, name = 'weixin')
     # url(r'^grappelli/', include('grappelli.urls')),
 
 ]

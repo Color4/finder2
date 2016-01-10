@@ -180,7 +180,7 @@ def person(request):
         # school_list = person_list.School_set.all()
         return render(request, 'person.html', locals())
 
-WEIXIN_TOKEN = 'xiaobaifinder'
+
 
 # AppID(应用ID)wxaa5b23ee724df3c6
 # AppSecret(应用密钥)14e808be891c1e5007c1cfc92dac8ab5
@@ -192,6 +192,7 @@ WEIXIN_TOKEN = 'xiaobaifinder'
 #     "access_token": "bYV34mrZxrfH2k9nLwW4SgbWL1eTY_qVfsMKFbhEOrTYsuUWqIywd7GXKPpeA5NxxBsVcxYkRjAh3UaIDuwqWOm7gx0V03u7CyPTciAwX6sDNOfAHAVFG",
 #     "expires_in": 7200
 # }
+WEIXIN_TOKEN = 'xiaobaifinder'
 AppID = 'wxaa5b23ee724df3c6'
 AppSecret = '14e808be891c1e5007c1cfc92dac8ab5'
 
