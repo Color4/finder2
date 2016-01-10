@@ -192,7 +192,7 @@ def person(request):
 #     "access_token": "bYV34mrZxrfH2k9nLwW4SgbWL1eTY_qVfsMKFbhEOrTYsuUWqIywd7GXKPpeA5NxxBsVcxYkRjAh3UaIDuwqWOm7gx0V03u7CyPTciAwX6sDNOfAHAVFG",
 #     "expires_in": 7200
 # }
-WEIXIN_TOKEN = 'xiaobaifinder'
+WECHAT_TOKEN = 'xiaobaifinder'
 AppID = 'wxaa5b23ee724df3c6'
 AppSecret = '14e808be891c1e5007c1cfc92dac8ab5'
 
