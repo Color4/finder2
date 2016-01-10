@@ -238,3 +238,4 @@ def weixin(request):
     else:
         response = wechat.response_text(u'未知')
         HttpResponse(response)
+

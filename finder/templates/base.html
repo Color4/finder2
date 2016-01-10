@@ -1,8 +1,9 @@
 {% load i18n %}
 {% include 'head.html' %}
 
+    {% block content-fluid %} {% endblock %}
 
-    <div id="container">
+    <div class="container" style="margin-top: 20px">
     {% block content %}{% endblock %}
     </div>
 
