@@ -197,7 +197,7 @@ AppID = 'wxaa5b23ee724df3c6'
 AppSecret = '14e808be891c1e5007c1cfc92dac8ab5'
 
 # 实例化 WechatBasic
-wechat_instance = WechatBasic(
+wechat = WechatBasic(
     token=WECHAT_TOKEN,
     appid=AppID,
     appsecret=AppSecret
@@ -212,7 +212,7 @@ def weixin(request):
         timestamp = request.GET.get('timestamp')
         nonce = request.GET.get('nonce')
 
-        if not wechat_instance.check_signature(
+        if not wechat.check_signature(
                 signature=signature, timestamp=timestamp, nonce=nonce):
             return HttpResponseBadRequest('Verify Failed')
 
@@ -221,34 +221,20 @@ def weixin(request):
 
 
     # 解析本次请求的 XML 数据
-    try:
-        wechat_instance.parse_data(data=request.body)
-    except ParseError:
-        return HttpResponseBadRequest('Invalid XML Data')
+    # if wechat.check_signature(signature=signature, timestamp=timestamp, nonce=nonce):
+    # 对 XML 数据进行解析 (必要, 否则不可执行 response_text, response_image 等操作)
+    wechat.parse_data(request.REQUEST.body)
+    # 获得解析结果, message 为 WechatMessage 对象 (wechat_sdk.messages中定义)
+    message = wechat.get_message()
 
-    # 获取解析好的微信请求信息
-    message = wechat_instance.get_message()
-
-    # 关注事件以及不匹配时的默认回复
-    response = wechat_instance.response_text(
-        content = (
-            '感谢您的关注！\n回复【功能】两个字查看支持的功能，还可以回复任意内容开始聊天'
-            '\n【<a href="http://www.ziqiangxuetang.com">自强学堂手机版</a>】'
-            ))
-    if isinstance(message, TextMessage):
-        # 当前会话内容
-        content = message.content.strip()
-        if content == '功能':
-            reply_text = (
-                    '目前支持的功能：\n1. 关键词后面加上【教程】两个字可以搜索教程，'
-                    '比如回复 "Django 后台教程"\n'
-                    '2. 回复任意词语，查天气，陪聊天，讲故事，无所不能！\n'
-                    '还有更多功能正在开发中哦 ^_^\n'
-                    '【<a href="http://www.ziqiangxuetang.com">自强学堂手机版</a>】'
-                )
-        elif content.endswith('教程'):
-            reply_text = '您要找的教程如下：'
-
-        response = wechat_instance.response_text(content=reply_text)
-
-    return HttpResponse(response, content_type="application/xml")
+    response = None
+    if message.type == 'text':
+        if message.content == 'wechat':
+            response = wechat.response_text(u'^_^')
+        else:
+            response = wechat.response_text(u'文字')
+    elif message.type == 'image':
+        response = wechat.response_text(u'图片')
+    else:
+        response = wechat.response_text(u'未知')
+        HttpResponse(response)
