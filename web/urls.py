@@ -27,8 +27,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$|^index/$', views.home, name='index'),
     url(r'^add/(\d)/(\d)/$', views.add),
-    # url(r'^accounts/', include('registration.backends.simple.urls')),
-    # url(r'^accounts/', include('registration.backends.hmac.urls')),
     url('^accounts/', include('registration.backends.hmac.urls')),
     # url(r'^form/$', finder.views.form),
     url(r'^contactform/$', views.contact_author, name='contactform'),
@@ -41,7 +39,10 @@ urlpatterns = [
     url('^ajax_val/', views.ajax_val, name='ajax_val'),
     url('^some_view/', views.some_view), # 这是打开form表单的链接
     url('^person/$', finder.views.person, name = 'person'),
-    url('^weixin/$', finder.views.weixin, name = 'weixin')
+    url('^weixin/$', finder.views.weixin, name = 'weixin'),
+    url('^test/$', finder.views.test, name='test'),
+    url('^context/$', finder.views.context)
+
     # url(r'^grappelli/', include('grappelli.urls')),
 
 ]

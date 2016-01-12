@@ -2,10 +2,53 @@
 {% load i18n %}
 
 {% block content %}
-<form method="post" action=".">
-  {% csrf_token %}
-  {{ form.as_p }}
 
-  <input type="submit" value="{% trans 'Submit' %}" />
-</form>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form method="post" class="form-horizontal" action=".">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% if field.errors %}
+                            <div class="form-group has-error">
+                                <label class="col-sm-2 control-label" for="{{ field.name }}"> {{ field.label }}</label>
+                                {# field.label_tag #}
+                                <div class="col-sm-10">{{ field }}</div>
+
+
+                                <div class="alert alert-danger col-sm-offset-2" role="alert">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    <span class="sr-only">Error:</span>
+                                    {{ field.errors.as_text }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="{{ field.name }}"> {{ field.label }}</label>
+                                {# field.label_tag #}
+                                <div class="col-sm-10">{{ field }}</div>
+
+                                {% if field.help_text %}
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <span id="helpBlock" class="help-block">{{ field.help_text }}</span>
+                                    </div>
+
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+
+                    {% endfor %}
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">提交</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}

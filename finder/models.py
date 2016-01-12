@@ -45,3 +45,8 @@ class Person(models.Model):
     email = models.EmailField('电子邮件')
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     province = models.ForeignKey(Province, on_delete = models.CASCADE)
+
+class Test(models.Model):
+    title = models.CharField('标题', max_length=10)
+    content = models.CharField('内容', max_length=110)
+    email = models.EmailField()

@@ -1,23 +1,25 @@
 import datetime
+import os
 
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect,Http404, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.template import Context, Template
+
 from django.core.urlresolvers import reverse
+
+from django.conf import settings
+
 from .form import *
 from .models import *
-from django.conf import settings
-import os
 from .word_cloud import create_cloud
+
+
 # captcha
 from captcha.models import CaptchaStore
-from captcha.helpers import captcha_image_url
 from django.http import JsonResponse
-import hashlib
 from wechat_sdk import WechatBasic
-from wechat_sdk.exceptions import ParseError
-from wechat_sdk.messages import TextMessage
 from django.views.decorators.csrf import csrf_exempt
+
 
 def add(request, a, b):  # /分割
     # a = request.GET['a']
@@ -66,13 +68,13 @@ def contact_author(request):
 
 
         # “首次访问”和“提交的信息不符合要求”时被调用
-        return render(request, 'form.html', {'form': form.as_p})
+        form['subject'].label_tag(attrs={'class': 'foo'})
+        return render(request, 'form.html', {'form': form})
 
 
 def db(request):
     person = Person.objects.filter(name='小白')
     str_html = ''
-    print(person)
     for ii in person:
         str_html += ii.name + ';' + str(ii.age) + '<br/>'
 
@@ -80,17 +82,16 @@ def db(request):
 
 
 def book_list(request):
-
-        # challenge = models.CharField(blank=False, max_length=32)
-        # response = models.CharField(blank=False, max_length=32)
-        # hashkey = models.CharField(blank=False, max_length=40, unique=True)
-        # expiration = models.DateTimeField(blank=False)
+    # challenge = models.CharField(blank=False, max_length=32)
+    # response = models.CharField(blank=False, max_length=32)
+    # hashkey = models.CharField(blank=False, max_length=40, unique=True)
+    # expiration = models.DateTimeField(blank=False)
 
 
     if request.method == 'POST':  # 提交请求时才会访问这一段，首次访问页面时不会执行
         form = BooksForm(request.POST)
         if form.is_valid():  # 说明各个字段的输入值都符合要求
-            human=True # 验证码
+            human = True  # 验证码
             cd = form.cleaned_data  # 只有各个字段都符合要求时才有对应的cleaned_data
 
             bk = Books()
@@ -111,42 +112,46 @@ def book_list(request):
         # “首次访问”和“提交的信息不符合要求”时被调用
         return render(request, 'books.html', {'form': form.as_p, 'book_list': book_list})
 
+
 def word_cloud(request):
     if request.method == 'POST':
-         form = WordCloudForm(request.POST, request.FILES)
-         if form.is_valid():
+        form = WordCloudForm(request.POST, request.FILES)
+        if form.is_valid():
             # return HttpResponse(request.FILES['file'].read())
             # os.path.join(BASE_DIR, "static")
             out_path = os.path.join(settings.STATIC_ROOT, 'out.jpg')
             # out_path = static('out.jpg')
             create_cloud(request.FILES['word'], request.FILES['img'], out_path)
             export = {
-                'success':True,
+                'success': True,
                 'out_file': 'out.jpg'
             }
             return render(request, 'word_cloud.html', export)
-         else:
-             return HttpResponse('fail')
+        else:
+            return HttpResponse('fail')
     else:
         form = WordCloudForm()
-        return render(request, 'word_cloud.html', {'form':form})
+        return render(request, 'word_cloud.html', {'form': form})
+
 
 def user_profile(request):
     return render(request, 'user_profile.html')
 
+
 def ajax_val(request):
-    if  request.is_ajax():
+    if request.is_ajax():
         cs = CaptchaStore.objects.filter(response=request.GET['response'],
-                                     hashkey=request.GET['hashkey'])
+                                         hashkey=request.GET['hashkey'])
         if cs:
-            json_data={'status':1}
+            json_data = {'status': 1}
         else:
-            json_data = {'status':0}
+            json_data = {'status': 0}
         return JsonResponse(json_data)
     else:
         # raise Http404
-        json_data = {'status':0}
+        json_data = {'status': 0}
         return JsonResponse(json_data)
+
 
 def some_view(request):
     if request.POST:
@@ -156,13 +161,13 @@ def some_view(request):
         # check the input
         if form.is_valid():
             human = True
-            return HttpResponse(form.clean()) # 这里没有建立模型，如果成功则直接打印
+            return HttpResponse(form.clean())  # 这里没有建立模型，如果成功则直接打印
         else:
             return HttpResponse('validate error')
     else:
         form = CaptchaTestForm()
 
-    return render(request,'template.html',locals())
+    return render(request, 'template.html', locals())
 
 
 def person(request):
@@ -171,15 +176,14 @@ def person(request):
 
         if form.is_valid():
             p = form.save()
-            return HttpResponse(request, 'success')
+            return HttpResponse('success')
         else:
-            return HttpResponse(request, 'hahaha')
+            return HttpResponse('hahaha')
     else:
         form = PersonForm()
         person_list = Person.objects.all()
         # school_list = person_list.School_set.all()
         return render(request, 'person.html', locals())
-
 
 
 # AppID(应用ID)wxaa5b23ee724df3c6
@@ -202,6 +206,7 @@ wechat = WechatBasic(
     appid=AppID,
     appsecret=AppSecret
 )
+
 
 @csrf_exempt
 def weixin(request):
@@ -239,3 +244,24 @@ def weixin(request):
         response = wechat.response_text(u'未知')
         HttpResponse(response)
 
+
+def test(request):
+    # return HttpResponse('hahhahah')
+    if request.POST:
+        form = TestForm(request.POST)
+
+        if form.is_valid():
+            # p = form.save()
+            p=form.cleaned_data
+            test_model = Test(title=p['title'], content=p['content'], email=p['email'])
+            test_model.save()
+            return HttpResponse('success')
+        else:
+            form['title'].label_tag(attrs={'class': 'foo'})
+            return render(request, 'form.html', locals())
+    else:
+        form = TestForm()
+        form['title'].label_tag(attrs={'class2': 'foo'})
+
+        # school_list = person_list.School_set.all()
+        return render(request, 'form.html', locals())
