@@ -1,9 +1,9 @@
-s a great boilerplate .gitignore
+#s a great boilerplate .gitignore
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-
+*.pyc
 # C extensions
 *.so
 .idea/
