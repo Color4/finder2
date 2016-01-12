@@ -54,6 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     # grappelli
 )
 
@@ -73,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # grappelli
                 "django.core.context_processors.request",
+                "django.core.context_processors.i18n",
 
             ],
         },
@@ -132,7 +134,7 @@ STATIC_ROOT=os.path.join(BASE_DIR, "static_root")
 
 ACCOUNT_ACTIVATION_DAYS = 7
 USE_I18N = True
-
+USE_L10N = True
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
@@ -154,3 +156,13 @@ ADMINS = (
 )
 #DEBUG = False
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost','120.27.100.156']
+
+LANGUAGES = (
+    ('en', ('English')),
+    ('zh-cn', ('中文简体')),
+    ('zh-tw', ('中文繁體')),
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)

@@ -1,5 +1,6 @@
 #s a great boilerplate .gitignore
-
+web/__pycache__/
+finder/__pycache__/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

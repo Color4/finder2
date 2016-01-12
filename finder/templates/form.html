@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 {% if registered %}
     hahahahha
@@ -54,5 +54,5 @@
         </div>
     </div>
 
-
+    {% crispy form form.helper %}
 {% endblock %}

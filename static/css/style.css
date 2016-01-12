@@ -5,3 +5,7 @@ height: 100px;
 -webkit-border-radius: 50px;
 border-radius: 50px;
 }
+
+.block-center{
+    margin:0px auto;
+}

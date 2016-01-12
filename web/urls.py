@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 """xiaobaifinder URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,14 +16,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+
 import finder.views as views
-import registration.backends.hmac
-from django.contrib.auth.views import login, logout
 import finder.views
 
-
 urlpatterns = [
-    url(r'^grappelli/', include('grappelli.urls')), # grappelli URLS
+    url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$|^index/$', views.home, name='index'),
     url(r'^add/(\d)/(\d)/$', views.add),
@@ -37,12 +35,9 @@ urlpatterns = [
     url('^wordcloud/', views.word_cloud, name='word_cloud'),
     url('^userprofile/', views.user_profile, name='user_profile'),
     url('^ajax_val/', views.ajax_val, name='ajax_val'),
-    url('^some_view/', views.some_view), # 这是打开form表单的链接
-    url('^person/$', finder.views.person, name = 'person'),
-    url('^weixin/$', finder.views.weixin, name = 'weixin'),
+    url('^some_view/', views.some_view),  # 这是打开form表单的链接
+    url('^person/$', finder.views.person, name='person'),
+    url('^weixin/$', finder.views.weixin, name='weixin'),
     url('^test/$', finder.views.test, name='test'),
-    url('^context/$', finder.views.context)
-
-    # url(r'^grappelli/', include('grappelli.urls')),
 
 ]

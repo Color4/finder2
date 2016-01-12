@@ -65,10 +65,16 @@ class PersonForm(ModelForm):
 
 
 class TestForm(forms.Form):
-    title = forms.CharField(max_length=10, label='标题',
+    title = forms.CharField(max_length=10,
+                            label='标题',
                             help_text='100 characters max.',
                             widget=forms.TextInput(attrs={'placeholder': 'title', 'class': 'form-control'}))
-    content = forms.CharField(max_length=110, label='内容', error_messages={'required': 'Please enter your name'},
+
+    content = forms.CharField(max_length=110,
+                              label='内容',
+                              error_messages={'required': 'Please enter your name'},
                               widget=forms.TextInput(attrs={'placeholder': 'content', 'class': 'form-control'}))
-    email = forms.EmailField(required=True, error_messages={'required': u'邮箱不能为空', 'invalid': u'请输入正确的邮箱'},
+
+    email = forms.EmailField(required=True,
+                             error_messages={'required': u'邮箱不能为空', 'invalid': u'请输入正确的邮箱'},
                              widget=forms.EmailInput(attrs={'placeholder': 'email', 'class': 'form-control'}))
