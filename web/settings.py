@@ -36,12 +36,20 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
+    # 'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'blog',
+    'django.contrib.humanize',
     'finder',
     'captcha',
-     # 'grappelli',
+    # bootcamp
+    'feed',
+    'core',
+    'user',
+    'articles',
+    'messages',
+    'questions',
+    'search',
+    'activities',
 
 )
 
@@ -63,7 +71,7 @@ ROOT_URLCONF = 'web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'blog/migrations/../blog/templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -155,14 +163,15 @@ ADMINS = (
     ('Li Pidong', '78956287@qq.com'),
 )
 #DEBUG = False
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','120.27.100.156']
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','120.27.100.156', '*']
+ALLOWED_SIGNUP_DOMAINS=ALLOWED_HOSTS
 LANGUAGES = (
     ('en', ('English')),
     ('zh-cn', ('中文简体')),
-    ('zh-tw', ('中文繁體')),
 )
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
+
+REDIRECT_FIELD_NAME='/'

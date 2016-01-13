@@ -1,0 +1,13 @@
+{% load i18n %}
+{% include 'head.html' %}
+
+    {% block content-fluid %} {% endblock %}
+
+    <div class="container" style="margin-top: 20px">
+    {% block content %}{% endblock %}
+    </div>
+
+   {% include 'foot.html' %}
+</body>
+
+</html>
