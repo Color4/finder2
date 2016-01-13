@@ -19,7 +19,7 @@ from captcha.models import CaptchaStore
 from django.http import JsonResponse
 from wechat_sdk import WechatBasic
 from django.views.decorators.csrf import csrf_exempt
-
+from django.contrib.sites.shortcuts import get_current_site
 
 def add(request, a, b):  # /分割
     # a = request.GET['a']
@@ -246,6 +246,8 @@ def weixin(request):
 
 
 def test(request):
+    current_site = request.get_full_path()
+    user = request.user;
     # return HttpResponse('hahhahah')
     if request.POST:
         form = TestForm(request.POST)

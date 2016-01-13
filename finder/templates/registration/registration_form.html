@@ -3,25 +3,15 @@
 
 {% block content %}
 
-    <div class="container">
+    <div class="container form">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <div>
 
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#register" aria-controls="home" role="tab"
-                                                                  data-toggle="tab">注册</a></li>
-                        <li role="presentation"><a href="#login" aria-controls="profile" role="tab"
-                                                   data-toggle="tab">登录</a>
-                        </li>
-                    </ul>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="register">
-                             <div class="panel panel-primary">
-{#                    <div class="panel-heading " style="font-size: 20px">注 册</div>#}
+
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading " style="font-size: 20px">小 白 发 现</div>
                     <div class="panel-body">
                         <form method="post" action=".">
                             {% csrf_token %}
@@ -31,7 +21,8 @@
                                         {{ field }}</div>
 
                                     <div class="alert alert-danger " role="alert">
-                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                    <span class="glyphicon glyphicon-exclamation-sign"
+                                                          aria-hidden="true"></span>
                                         <span class="sr-only">Error:</span>
                                         {{ field.errors.as_text }}
                                     </div>
@@ -42,7 +33,8 @@
 
                                         {% if field.help_text %}
                                             <div>
-                                                <span id="helpBlock" class="help-block">{{ field.help_text }}</span>
+                                                            <span id="helpBlock"
+                                                                  class="help-block">{{ field.help_text }}</span>
                                             </div>
 
                                         {% endif %}
@@ -52,25 +44,25 @@
 
                             {% endfor %}
                             <div>
-                                <button type="submit" class="btn btn-primary block-center" style="width:100%">注册
+                                <button type="submit" class="btn btn-primary block-center"
+                                        style="width:100%">注册
                                 </button>
 
                             </div>
-
+                        <p></p>
+                            <a href="/accounts/login">已有账号？登录</a>
                         </form>
-                    </div>
-                </div>
-
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="login">profile</div>
 
                     </div>
-
                 </div>
+            <!--end panel -->
 
 
             </div>
+
+
         </div>
+    </div>
 
 
     </div>

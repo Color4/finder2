@@ -2,14 +2,69 @@
 {% load i18n %}
 
 {% block content %}
-    {{ user.id }}
-<form method="post" action=".">
-  {% csrf_token %} 
-  {{ form.as_p }}
 
-  <input type="submit" value="{% trans 'Log in' %}" />
-    <input type="hidden" name='next' value={% url 'index' %}>
-</form>
+    <div class="container form">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading " style="font-size: 20px">小 白 发 现</div>
+                    <div class="panel-body">
+                        <form method="post" action=".">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                {% if field.errors %}
+                                    <div class="form-group has-error">
+                                        {{ field }}</div>
+
+                                    <div class="alert alert-danger " role="alert">
+                                                    <span class="glyphicon glyphicon-exclamation-sign"
+                                                          aria-hidden="true"></span>
+                                        <span class="sr-only">Error:</span>
+                                        {{ field.errors.as_text }}
+                                    </div>
+                                {% else %}
+                                    <div class="form-group">
+                                        {# field.label_tag #}
+                                        {{ field }}
+
+                                        {% if field.help_text %}
+                                            <div>
+                                                            <span id="helpBlock"
+                                                                  class="help-block">{{ field.help_text }}</span>
+                                            </div>
+
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+
+
+                            {% endfor %}
+                        <input type="hidden" name="next" value="{% url 'user_profile' %}">
+                            <div>
+                                <button type="submit" class="btn btn-primary block-center"
+                                        style="width:100%">登录
+                                </button>
+
+                            </div>
+                            <p></p>
+                            <a href="/accounts/login">没有账号？注册</a>
+                        </form>
+
+                    </div>
+                </div>
+                <!--end panel -->
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+    </div>
 
 
 {% endblock %}

@@ -1,15 +1,12 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load crispy_forms_tags %}
 {% block content %}
-{% if registered %}
-    hahahahha
-    {% else %}
-    xixiixix
-    {% endif %}
+
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
+            {{ current_site }}
+            {{ user }}
                 <form method="post" class="form-horizontal" action=".">
                     {% csrf_token %}
                     {% for field in form %}
@@ -54,5 +51,4 @@
         </div>
     </div>
 
-    {% crispy form form.helper %}
 {% endblock %}
