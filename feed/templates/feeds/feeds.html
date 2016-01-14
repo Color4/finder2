@@ -28,6 +28,7 @@
 
           <div class="compose">
             <h2>{% trans "Compose a new post" %}</h2>
+{#              提交post form#}
             <form role="form" id="compose-form">
               {% csrf_token %}
               <input type="hidden" name="last_feed">
@@ -43,7 +44,7 @@
               </div>
             </form>
           </div>
-          <div class="stream-update">
+          <div class="stream-update"> <!--新post标签-->
             <a href="#"><span class="new-posts"></span> {% trans 'new posts' %}</a>
           </div>
           <ul class="stream">

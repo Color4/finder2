@@ -20,7 +20,7 @@
     {% endif %}
     <div class="login">
       <h2>{% trans 'Log in' %}</h2>
-      <form method="post" action="{{ 'login/?next=/' }}" role="form">
+      <form method="post" action="{{ request.get_full_path }}" role="form">
         {% csrf_token %}
         <div class="form-group{% if form.username.errors %} has-error{% endif %}">
           <label for="username">{% trans 'Username' %}</label>

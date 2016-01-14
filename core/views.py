@@ -9,6 +9,8 @@ from django.conf import settings as django_settings
 from django.shortcuts import render, redirect, get_object_or_404
 
 from core.forms import ProfileForm, ChangePasswordForm
+from django.http import HttpResponse
+
 from feed.models import Feed
 from feed.views import FEEDS_NUM_PAGES
 from feed.views import feeds
@@ -79,7 +81,7 @@ def picture(request):
         if request.GET.get('upload_picture') == 'uploaded':
             uploaded_picture = True
     except Exception as e:
-        pass
+        return HttpResponse(e)
     return render(request, 'core/picture.html', {'uploaded_picture': uploaded_picture})
 
 @login_required
@@ -117,7 +119,8 @@ def upload_picture(request):
             im.save(filename)
         return redirect('/settings/picture/?upload_picture=uploaded')
     except Exception as e:
-        return redirect('/settings/picture/')
+        return HttpResponse(e)
+        # return redirect('/settings/picture/')
 
 @login_required
 def save_uploaded_picture(request):

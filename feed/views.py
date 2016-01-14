@@ -11,11 +11,14 @@ from django.contrib.auth.decorators import login_required
 from .models import Feed
 from activities.models import Activity
 from decorators import ajax_required
+from django.core.urlresolvers import reverse
+
 
 FEEDS_NUM_PAGES = 10
 
-
-@login_required
+# login_url = reverse('login')
+login_url = '/login'
+# @login_required(login_url=login_url)
 def feeds(request):
     all_feeds = Feed.get_feeds()
     paginator = Paginator(all_feeds, FEEDS_NUM_PAGES)
@@ -35,9 +38,14 @@ def feed(request, pk):
     return render(request, 'feeds/feed.html', {'feed': feed})
 
 
-@login_required
+# @login_required(login_url=login_url)
 @ajax_required
 def load(request):
+    '''
+    ajax 动态加载feeds
+    :param request:
+    :return:
+    '''
     from_feed = request.GET.get('from_feed')
     page = request.GET.get('page')
     feed_source = request.GET.get('feed_source')
@@ -100,9 +108,14 @@ def check(request):
     return HttpResponse(count)
 
 
-@login_required
+@login_required()
 @ajax_required
 def post(request):
+    '''
+    提交短文，必须登录
+    :param request:
+    :return:
+    '''
     last_feed = request.POST.get('last_feed')
     user = request.user
     csrf_token = csrf(request)['csrf_token']

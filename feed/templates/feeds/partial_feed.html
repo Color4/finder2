@@ -3,9 +3,10 @@
 
 <li feed-id="{{ feed.pk }}" csrf="{{ csrf_token }}">
     <div class="feed-container">
-{#        <a href="{% url 'profile' feed.user.username %}">#}
-          <a>  <img src="{{ feed.user }}"
-                                                              class="user"></a>
+        <a href="{% url 'profile' feed.user.username %}">
+
+            <img src="{{ feed.user.profile.get_picture }}" class="user">
+        </a>
 
         <div class="post">
             {% if feed.user == user %}
@@ -13,35 +14,39 @@
                       title="{% trans 'Click to remove this feed' %}"></span>
             {% endif %}
             <h3>
-{#                <a href="{% url 'profile' feed.user.username %}">#}
+                {#                <a href="{% url 'profile' feed.user.username %}">#}
 
-                <a href="profile">    {{ feed.user.profile.get_screen_name }}</a>
+                <a href="{% url 'profile'  feed.user.username %}">    {{ feed.user.profile.get_screen_name }}</a>
 
 
                 <small>{{ feed.date|naturaltime }}</small>
             </h3>
-            <p>{{ feed.linkfy_post|safe }}</p>
+
+            <p>{{ feed.linkfy_post|safe }}</p> <!--短文内容-->
 
             <div class="interaction">
-                {% if user in feed.get_likers %}
-                    <a href="#" class="like unlike">
-                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                        <span class="text">{% trans 'Unlike' %}</span>
-                        (<span class="like-count">{{ feed.likes }}</span>)
-                    </a>
-                {% else %}
-                    <a href="#" class="like">
-                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                        <span class="text">{% trans 'Like' %}</span>
-                        (<span class="like-count">{{ feed.likes }}</span>)
-                    </a>
-                {% endif %}
+{#                {% if user.is_authenticated %}#}
+                    {% if user in feed.get_likers %}
+                        <a href="#" class="like unlike " disabled="disabled">
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                            <span class="text">{% trans 'Unlike' %}</span>
+                            (<span class="like-count">{{ feed.likes }}</span>)
+                        </a>
+                    {% else %}
+                        <a href="#" class="like" disabled="disabled">
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                            <span class="text">{% trans 'Like' %}</span>
+                            (<span class="like-count">{{ feed.likes }}</span>)
+                        </a>
+                    {% endif %}
+{#                {% endif %}#}
                 <a href="#" class="comment">
                     <span class="glyphicon glyphicon-comment"></span> {% trans 'Comment' %}
                     (<span class="comment-count">{{ feed.comments }}</span>)
                 </a>
             </div>
-            <div class="comments">
+
+            <div class="comments" >
                 <form role="form" method="post" action="{{ comment }}" onsubmit="return false">
                     {% csrf_token %}
                     <input type="hidden" name="feed" value="{{ feed.pk }}">

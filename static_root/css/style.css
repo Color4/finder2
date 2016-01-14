@@ -1,0 +1,42 @@
+.circle {
+width: 100px;
+height: 100px;
+-moz-border-radius: 50px;
+-webkit-border-radius: 50px;
+border-radius: 50px;
+}
+
+
+
+.from .nav-tabs li{
+    margin-right: 0;
+}
+.form .nav-tabs > li >a
+{
+    color:#cccccc;
+    margin-right: 0px;
+
+}
+.form .nav-tabs > li >a:hover{
+    color: #337AB7;
+}
+
+
+.form .nav-tabs > li.active > a,
+        .nav-tabs > li.active > a:hover,
+        .nav-tabs > li.active > a:focus {
+          cursor: default;
+          border: 1px solid #337AB7;
+          border-bottom-color: transparent;
+          border-radius: 4px 4px 0px 0px;
+          color: #337AB7;
+          }
+
+.form .nav-tabs{
+    margin-bottom: -2px;
+}
+
+/*.form .panel{*/
+
+    /*border-radius:0px 4px 4px 4px ;*/
+/*}*/

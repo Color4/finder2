@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-
+from django.conf import settings
 import finder.views as views
 import finder.views
+from django.views.static import serve
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
@@ -61,3 +62,10 @@ urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n', namespace='i18n')),
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+   ]
