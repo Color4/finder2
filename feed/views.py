@@ -17,8 +17,9 @@ from django.core.urlresolvers import reverse
 FEEDS_NUM_PAGES = 10
 
 # login_url = reverse('login')
-login_url = '/login'
-# @login_required(login_url=login_url)
+# login_url = '/login'
+
+@login_required()
 def feeds(request):
     all_feeds = Feed.get_feeds()
     paginator = Paginator(all_feeds, FEEDS_NUM_PAGES)

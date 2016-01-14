@@ -178,3 +178,6 @@ LOCALE_PATHS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media_root")
+LOGIN_REDIRECT_URL='/'
+
+LOGIN_URL='/login'
